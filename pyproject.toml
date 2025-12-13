@@ -1,0 +1,90 @@
+[project]
+name = "graphrag-maintenance"
+version = "0.1.0"
+description = "Production-grade GraphRAG chatbot for oil & gas maintenance operations"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
+authors = [{ name = "GraphRAG Team" }]
+
+dependencies = [
+    # Core
+    "fastapi>=0.109.0",
+    "uvicorn[standard]>=0.27.0",
+    "pydantic>=2.5.0",
+    "pydantic-settings>=2.1.0",
+    
+    # LangGraph & LLM
+    "langgraph>=0.0.40",
+    "langchain-core>=0.1.20",
+    
+    # LLM Providers
+    "google-generativeai>=0.3.2",
+    "groq>=0.4.2",
+    "httpx>=0.26.0",
+    "ollama>=0.1.6",
+    
+    # Embeddings
+    "sentence-transformers>=2.3.0",
+    
+    # Databases
+    "neo4j>=5.15.0",
+    "qdrant-client>=1.7.0",
+    "asyncpg>=0.29.0",
+    "sqlalchemy[asyncio]>=2.0.25",
+    "redis>=5.0.1",
+    
+    # Document Processing
+    "unstructured[pdf,docx]>=0.12.0",
+    "pypdf>=3.17.0",
+    "python-docx>=1.1.0",
+    
+    # Orchestration
+    "prefect>=2.14.0",
+    
+    # Observability
+    "opentelemetry-api>=1.22.0",
+    "opentelemetry-sdk>=1.22.0",
+    "opentelemetry-exporter-otlp>=1.22.0",
+    "opentelemetry-instrumentation-fastapi>=0.43b0",
+    "prometheus-client>=0.19.0",
+    "structlog>=24.1.0",
+    
+    # Utils
+    "python-multipart>=0.0.6",
+    "python-jose[cryptography]>=3.3.0",
+    "passlib[bcrypt]>=1.7.4",
+    "tenacity>=8.2.3",
+    "aiofiles>=23.2.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.4",
+    "pytest-asyncio>=0.23.3",
+    "pytest-cov>=4.1.0",
+    "ruff>=0.1.13",
+    "mypy>=1.8.0",
+    "pre-commit>=3.6.0",
+    "httpx>=0.26.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+select = ["E", "F", "I", "N", "W", "UP", "B", "C4", "SIM"]
+ignore = ["E501"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+addopts = "-v --tb=short"
