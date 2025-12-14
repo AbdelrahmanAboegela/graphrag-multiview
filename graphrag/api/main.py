@@ -3,12 +3,19 @@
 from contextlib import asynccontextmanager
 from typing import Any
 import logging
+import os
+from pathlib import Path
 
+from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Depends, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 import structlog
+
+# Load environment variables from .env file
+env_path = Path(__file__).parent.parent.parent / ".env"
+load_dotenv(dotenv_path=env_path)
 
 from graphrag.core.config import get_settings
 from graphrag.core.models import QueryRequest, QueryResponse
